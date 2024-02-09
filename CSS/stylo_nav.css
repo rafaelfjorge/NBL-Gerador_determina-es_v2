@@ -1,0 +1,89 @@
+*{margin: 0; padding: 0;} /*Isso redefine as margens e preenchimentos padrão de todos os elementos HTML para zero*/
+:root{ /*Define variáveis CSS globais para as cores utilizadas no estilo do menu.*/
+    --cor-fundo : rgb(251, 251, 252);
+    --cor-hover : rgb(7, 7, 7);
+    --cor-primaria : rgb(0, 0, 0);
+}
+
+.menu a{ /* Aplica estilos aos links dentro do menu - Cor do texto - Todas as pages chamam esse cara aqui*/
+	color: var(--cor-primaria);
+	text-decoration: none;
+}
+
+.menu ul li{ /*Aplica estilos aos itens da lista principal do menu.*/
+	background-color: var(--cor-fundo);
+	float: left;
+	width: 200px;
+	height: 38px;
+	display: inline-block;
+	text-align: top;
+	line-height: 40px;
+	font-size: 20px;
+	position: relative;
+	border: 1px solid rgb(85, 83, 83);
+	list-style: none;
+    border-radius: 5px;
+	
+}
+.menu ul li:hover{ /*Aplica estilos quando o mouse está sobre os itens da lista principal do menu.*/
+	background:#615a5a; 
+    color:#fff; 
+    -moz-box-shadow:0 3px 10px 0 #CCC; 
+    -webkit-box-shadow:0 3px 10px 0 #ccc; 
+    text-shadow:0px 0px 5px #fff; 
+}
+
+.menu ul{ /*Aplica estilos à lista principal do menu*/
+	background-color: var(--cor-fundo);
+	padding: 0px;
+	list-style-type: nome;
+    z-index: 2;
+
+}
+
+.menu ul ul{ /*Aplica estilos aos submenus (dropdowns) do menu*/
+	display: none;
+	background-color: var(--cor-fundo);
+	color: var(--cor-primaria);
+	border-right: 1px solid black;
+}
+
+.menu ul li:hover > ul{ /*Exibe os submenus quando o mouse está sobre os itens da lista principal do menu.*/
+	display:block;
+	color: var(--cor-primaria);
+	
+}
+
+.menu ul ul ul{ /*Aplica estilos aos submenus de terceiro nível.*/
+	margin-left: 200px;
+	top: 0px;
+	position: absolute;
+	background-color: var(--cor-fundo);
+	color: var(--cor-primaria);
+	border-right: 1px solid rgb(255, 248, 248);
+}
+
+.menu ul ul li:hover{ /*Aplica estfilos quando o mouse está sobre os itens dos submenus.*/
+	background:#555353; 
+    color:#fff; 
+    -moz-box-shadow:0 3px 10px 0 #CCC; 
+    -webkit-box-shadow:0 3px 10px 0 #ccc; 
+    text-shadow:0px 0px 5px #fff; 
+}
+
+.menu ul ul ul li:hover{ /*Aplica estilos quando o mouse está sobre os itens dos submenus de terceiro nível.*/
+	background:#525050; 
+    color:#1f1d1d; 
+    -moz-box-shadow:0 3px 10px 0 #CCC; 
+    -webkit-box-shadow:0 3px 10px 0 #ccc; 
+    text-shadow:0px 0px 5px #fff; 
+}
+footer { /*Ajusta Texto "© Copyright 2024 - by Garfinho."*/
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px; /* Espaçamento interno opcional */
+    text-align: right; /* Alinhamento do texto à direita */
+    width: 100%; /* Ocupa 100% da largura */
+  }
+  

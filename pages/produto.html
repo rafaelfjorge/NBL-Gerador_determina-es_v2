@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Proutos</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="../CSS/stylo_nav.css">
+    <link rel="stylesheet" href="../CSS/stylo_page.css">
+
+    <script defer src="../js/validacheckbox.js"></script>
+    <script defer src="../js/navegacao.js"></script>
+    <script defer src="../js/produto/validar_dados.js"></script>
+    <script defer src="../js/validar_cfops.js"></script>
+    <script defer src="../js/produto/gerar_combinacoes.js"></script>
+    <script defer src="../js/produto/testes.js"></script>
+    <script defer src="../js/produto/export.js"></script>
+    <script defer src="../js/limpar_resultados.js"></script>
+ 
+</head>
+<body>
+    <main>
+        <div>
+            <h1><nav class="menu">
+                    <ul>
+                        <li><a href="index.html" id="paginaInicial">Pagina Inicial</a></li>
+                        <li><a href="#" id="determinacoes">Determinações</a>
+                            <ul>
+                                <li><a href="#" id="caminhoProdutoEntrada">Produto</a>
+                             
+                                </li>
+                                <li><a href="#" id="servicoEntrada">Serviço</a>
+                                  
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+            </nav></h1>
+        </div>
+    </main>
+    
+    <br><br><br>
+
+    <h1 class="text-pages-combinacoes">Combinações para produtos</h1><br><br><br><br>
+    <button id="botaoTeste">Teste</button>
+
+
+    <table class="tabela-checkbox">
+        <thead>
+         <tr>
+             <th>Saída de produto</th>
+             <th>Entrada de produto</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+            <td><input type="checkbox" name="saida_produto_check" id="saida_produto_check" onclick="validarCheckbox(this)"></td>
+            <td><input type="checkbox" name="entrada_produto_check" id="entrada_produto_check" onclick="validarCheckbox(this)"></td>
+         </tr>
+        </tbody>
+        
+     </table><br><br>
+     <!-- <select name="lista_opcoes" id="lista_opcoes">
+        <option value="Importação">Importação</option>
+        <option value="Venda">Venda</option>
+        <option value="Revenda">Revenda</option>
+    </select> -->
+   
+    <form class="abrevicao-name-form">
+        Abreviação do nome da empresa: <input type="text" name="abreviacao_nome_empresa" id="abreviacao_nome_empresa" value=""><br><br>    
+    </form><br>
+
+
+    <form class="geral-form">
+        <table class="tabela-preenchimento">
+            <tr>
+                <td><label for="cfops">CFOPs:</label></td>
+                <td><input type="text" name="cfops" id="cfops" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="cod_do_item">Codigo do item:</label></td>
+                <td><input type="text" name="cod_do_item" id="cod_do_item" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="estado_emissor">Estado Emissor:</label></td>
+                <td><input type="text" name="estado_emissor" id="estado_emissor" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="regime_emissor">Regime Emissor:</label></td>
+                <td><input type="text" name="regime_emissor" id="regime_emissor" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="linha_emissor">Linha Emissor:</label></td>
+                <td><input type="text" name="linha_emissor" id="linha_emissor" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="estado_destinatario">Estado Destinatário:</label></td>
+                <td><input type="text" name="estado_destinatario" id="estado_destinatario" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="regime_destinatario">Regime Destinatário:</label></td>
+                <td><input type="text" name="regime_destinatario" id="regime_destinatario" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="linha_destinatario">Linha Destinatário:</label></td>
+                <td><input type="text" name="linha_destinatario" id="linha_destinatario" value=""></td>
+            </tr>
+        </table>
+    </form>
+
+    <div class="resultado-gerados">    
+        Combinações geradas: <input type="text" id="resultado" readonly> </p> <br><br>
+    </div>
+
+    <form class="form-button">
+    <!-- <button type="button" id="gerar_combinacoes">Gerar Combinacoes</button>  -->
+    <button type="button" id="gerar_combinacoes">Gerar Combinacoes</button>
+    <button type="button" id="exportar_excel">Exportar CSV</button> 
+    <button type="button" id="limpar_resultados">Limpar Resultados</button></p> 
+    </form>
+    <br>
+
+    <h2 id="resultados_geral"> </h2>
+    <table class="resultado-da-tabela-resultado" id="resultadoTabela"></table>
+
+    <footer>
+        <p>&copy; Copyright 2021 - by Garfinho. All rights reserved.</p>
+    </footer>
+</body>
+</html>

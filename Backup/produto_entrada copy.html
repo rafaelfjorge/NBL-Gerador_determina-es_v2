@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proutos Entrada</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="../CSS/stylo_nav.css">
+    <link rel="stylesheet" href="../CSS/stylo_page.css">
+    <script defer src="../js/navegacao.js"></script>
+</head>
+<body>
+    
+    <div>
+        <h1><nav class="menu">
+            <ul>
+                <li><a href="index.html" id="paginaInicial">Pagina Inicial</a></li>
+                <li><a href="#" id="determinacoes">Determinações</a>
+                    <ul>
+                        <li>Produto
+                            <ul>
+                                <li><a href="#" id="caminhoProdutoEntrada">Entrada</a></li>
+                                <li><a href="#" id="produtoSaida">Saída</a></li>
+                            </ul>
+                        </li>
+                        <li>Serviços
+                            <ul>
+                                <li><a href="#" id="servicoEntrada">Entrada</a></li>
+                                <li><a href="#" id="servicoSaida">Saída</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div> </h1>
+    <br><br><br>
+
+    <h1 class="text-pages-combinacoes">Combinações para entrada de produtos</h1>
+ 
+    <form>
+       <label for="resultado">Combinações geradas:</label>
+        <input type="text" id="resultado" readonly> </p> <br><br>
+
+        <label for="abreviacao_nome_empresa">Abreviação do nome da empresa:</label>
+        <input type="text" name="abreviacao_nome_empresa" id="abreviacao_nome_empresa" value=""><br><br>
+
+        <label for="cfops">CFOPs:</label>
+        <input type="text" name="cfops" id="cfops" value=""><br><br>
+
+        <label for="cod_do_item">Codigo do item:</label>
+        <input type="text" name="cod_do_item" id="cod_do_item" value=""><br><br>
+
+        <label for="estado_emissor">Estado Emissor:</label>
+        <input type="text" name="estado_emissor" id="estado_emissor" value=""><br><br>
+
+        <label for="regime_emissor">Regime Emissor:</label>
+        <input type="text" name="regime_emissor" id="regime_emissor" value=""><br><br>
+
+        <label for="linha_emissor">Linha Emissor:</label>
+        <input type="text" name="linha_emissor" id="linha_emissor" value=""><br><br>
+
+        <label for="estado_destinatario">Estado Destinatário:</label>
+        <input type="text" name="estado_destinatario" id="estado_destinatario" value=""><br><br>
+
+        <label for="regime_destinatario">Regime Destinatário:</label>
+        <input type="text" name="regime_destinatario" id="regime_destinatario" value=""><br><br>
+
+        <label for="linha_destinatario">Linha Destinatário:</label>
+        <input type="text" name="linha_destinatario" id="linha_destinatario" value=""><br><br>
+    
+    </form>
+
+    <button type="button" id="gerar_combinacoes">Gerar Combinacoes</button> 
+    <button type="button" id="exportar_csv">Exportar CSV</button> 
+    <button type="button" id="limpar_resultados">Limpar Resultados</button></p> 
+    <br>
+
+    <h2 id="resultados_geral"> </h2>
+    <table id="resultadoTabela"></table>
+
+    <script>
+
+        window.onload = function() {
+            document.getElementById("linha_destinatario").focus();
+        };
+
+
+        function showSubMenu(item) {
+            item.querySelector('.submenu').style.display = 'block';
+        }
+
+        function hideSubMenu(item) {
+            item.querySelector('.submenu').style.display = 'none';
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var combinacoes;
+
+            document.querySelector('#gerar_combinacoes').addEventListener('click', function () {
+                var cfops = document.querySelector('#cfops').value.split(/[,\|]+/);
+                var cod_do_item = document.querySelector('#cod_do_item').value.split(/[,\|]+/);
+                var estados_emissor = document.querySelector('#estado_emissor').value.split(/[,\|]+/);
+                var estados_destinatario = document.querySelector('#estado_destinatario').value.split(/[,\|]+/);
+                var regime_emissor = document.querySelector('#regime_emissor').value.split(/[,\|]+/);
+                var regime_destinatario = document.querySelector('#regime_destinatario').value.split(/[,\|]+/);
+                var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
+                var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
+                var abreviacao_nome_empresa = document.querySelector('#abreviacao_nome_empresa').value;
+
+                // Validações
+                if (cfops.some(cfop => !/^[123]\d{0,3}$/.test(cfop))) {
+                    alert("CFOPs de entrada devem conter apenas números que começam com 1, 2 ou 3 e ter no máximo 4 caracteres.");
+                    return;
+                }
+
+                var campos = [
+                { nome: 'CFOPs', valor: cfops },
+                { nome: 'Estado Emissor', valor: estados_emissor },
+                { nome: 'Regime Emissor', valor: regime_emissor },
+                { nome: 'Linha Emissor', valor: linha_emissor },
+                { nome: 'Estado Destinatário', valor: estados_destinatario },
+                { nome: 'Regime Destinatário', valor: regime_destinatario },
+                { nome: 'Linha Destinatário', valor: linha_destinatario }
+            ];
+                for (var i = 0; i < campos.length; i++) {
+                    if (campos[i].valor.some(valor => valor === '')) {
+                        alert("O campo " + campos[i].nome + " não pode estar vazio.");
+                        return;
+                    }
+                }
+                if (abreviacao_nome_empresa === '') {
+                    alert("O campo Abreviação Nome Empresa não pode estar vazio.");
+                    return;
+                }
+
+                combinacoes = cartesianProduct([estados_emissor, estados_destinatario, cfops, cod_do_item, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario]);
+
+                document.querySelector('#resultado').value = combinacoes.length;
+
+                
+                var table = document.querySelector('#resultadoTabela');
+                table.innerHTML = ''; // Limpar tabela anterior
+
+                // Cabeçalho da tabela
+                var cabecalho = "InternalId;Estado Emissor;Estado Destinatario;CFOP;Codigo do Item;Regime Emissor;Regime Destinatario;Linha Emissor;Linha Destinatario";
+                var cabecalhoItens = cabecalho.split(';');
+                var tableHeader = '<thead><tr>';
+                for (var i = 0; i < cabecalhoItens.length; i++) {
+                    tableHeader += '<th>' + cabecalhoItens[i] + '</th>';
+                }
+                tableHeader += '</tr></thead>';
+                table.innerHTML = tableHeader;
+
+                // Conteúdo da tabela
+                    var tableBody = '<tbody>';
+                    for (var i = 0; i < combinacoes.length; i++) {
+                        var abreviacao_incrementada = abreviacao_nome_empresa + "-" + (i + 1);
+                        tableBody += '<tr>';
+                        tableBody += '<td>' + abreviacao_incrementada + '</td>'; // Adicionar a coluna 'Abreviação Nome Empresa'
+                        for (var j = 0; j < combinacoes[i].length; j++) {
+                            tableBody += '<td>' + combinacoes[i][j] + '</td>';
+                        }
+                        tableBody += '</tr>';
+                    }
+                    tableBody += '</tbody>';
+                    table.innerHTML += tableBody;
+
+            });
+
+            document.querySelector('#exportar_csv').addEventListener('click', function () {
+                var cfops = document.querySelector('#cfops').value.split(/[,\|]+/);
+                var cod_do_item = document.querySelector('#cod_do_item').value.split(/[,\|]+/);
+                var estados_emissor = document.querySelector('#estado_emissor').value.split(/[,\|]+/);
+                var estados_destinatario = document.querySelector('#estado_destinatario').value.split(/[,\|]+/);
+                var regime_emissor = document.querySelector('#regime_emissor').value.split(/[,\|]+/);
+                var regime_destinatario = document.querySelector('#regime_destinatario').value.split(/[,\|]+/);
+                var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
+                var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
+                var abreviacao_nome_empresa = document.querySelector('#abreviacao_nome_empresa').value;
+
+                var csvContent = "ExternalId;Nome Da Regra;Estado Emissor;Estado Destinatario;CFOP;Codigo do Item;Regime Emissor;Regime Destinatario;Linha Emissor;Linha Destinatario\n";
+
+                for (var i = 0; i < combinacoes.length; i++) {
+                    var abreviacao_incrementada = abreviacao_nome_empresa + "-" + (i + 1);
+                    var concate = combinacoes[i][0] + " > " + combinacoes[i][1] + " | " + combinacoes[i][3] + " & " + combinacoes[i][4];
+                    csvContent += abreviacao_incrementada + ";" + concate + ";" + combinacoes[i].join(';') + "\n";
+                }
+
+                var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+                saveAs(blob, 'combinacoes.csv');
+            });
+
+            function cartesianProduct(arrays) {
+                return arrays.reduce(function (a, b) {
+                    var result = [];
+                    a.forEach(function (x) {
+                        b.forEach(function (y) {
+                            result.push(x.concat([y]));
+                        });
+                    });
+                    return result;
+                }, [[]]);
+            }
+
+            document.querySelector('#limpar_resultados').addEventListener('click', function () {
+                document.querySelector('#resultadoTabela').innerHTML = '';
+                var resultadosGeral = document.querySelector('#resultado');
+                resultadosGeral.value = '';
+            });
+        });
+    </script>
+    <footer>
+        <p>&copy; Copyright 2021 - by Garfinho. All rights reserved.</p>
+    </footer>
+</body>
+</html>

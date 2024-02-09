@@ -1,0 +1,144 @@
+.resultado-da-tabela-resultado /*Formata a tabela de resultados*/
+{
+    background-color: #0e0d0d;
+    font-size: auto;
+    border-spacing: 3px;
+    border-collapse: separate;
+    color: #0e0d0d;
+}
+
+th /*Titulo da tabela*/
+{
+    background-color: #eff3ef;
+    color: #290e0e;
+    text-transform: uppercase;
+    padding: 3px;
+    
+}
+
+/*Isso faz que o Th do Tr recebe cores diferentes*/
+tr:nth-child(even) /*Cor da linha 2 da tabela*/
+{
+    background-color: #f8f2f2;
+}
+tr:nth-child(odd) /*Cor da linha 1 da tabela*/
+{
+    background-color: #e8e7ec;
+}
+
+
+.tabela-checkbox{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input[type="checkbox"]
+{
+    width: 100%;
+}
+
+body.pagina-index {
+    margin: 0; /* Remova as margens padrão do corpo para garantir cobertura total */
+    padding: 0; /* Remova o preenchimento padrão do corpo */
+    height: 100vh; /* Ajusta a altura para ocupar 100% da altura da viewport */
+    /* background-image: url('https://cdn.wallpapersafari.com/81/96/iTInQc.jpg'); */
+    background-color: #ccc;
+    background-size: cover; /* Garante que a imagem cubra toda a área do elemento */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    color: white;
+    font-size: larger;  
+}
+
+h1.text-h1-index { /*Ajusta Texto "Determinações"*/
+    color: #e00909;
+}
+
+h1 { 
+    text-align: center;
+    color: #0f0f0f;
+}
+
+.resultado-gerados {
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(255, 6, 6);
+    /* background-color: #fffdfd; */
+    padding: 10px;
+    border-top: 1px solid #ccc; /* Adiciona borda superior */
+    border-bottom: 1px solid #ccc; /* Adiciona borda inferior */
+    height: 30px;
+}
+
+.resultado-gerados input {
+    width: 05%;
+    max-width: 800px;
+    height: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+input[type="text"]#abreviacao_nome_empresa {
+    width: 05%;
+    max-width: 800px;
+    height: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+
+}
+
+input[type="text"]#abreviacao_nome_empresa:not(:focus) {
+    width: 05%;
+    max-width: 800px;
+    height: 10px;
+    padding: 5px;
+    border: 1px solid #a00202;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.form-button button {
+    border-radius: 10px; /* Borda arredondada */
+    background-color: #3498db; /* Cor de fundo azul escuro */
+    color: #fff; /* Cor do texto branco */
+    font-weight: bold; /* Texto em negrito */
+    text-align: center; /* Alinhamento ao centro */
+    padding: 10px 20px; /* Espaçamento interno */
+    transition: background-color 0.3s ease; /* Transição suave para a mudança de cor ao passar o mouse */
+    cursor: pointer;
+}
+
+.form-button button:hover {
+    background-color: #2980b9; /* Cor de fundo mais escura ao passar o mouse */
+}
+
+.form-button button:active {
+    opacity: 0.8; /* Opacidade reduzida quando clicado */
+}
+
+.geral-form label {
+    font-weight: bold; /* Texto em negrito para as labels */
+    color: #a00202;
+}
+
+.geral-form input {
+    width: 50%; /* Define a largura do input para 100% da largura do contêiner pai */
+    box-sizing: border-box; /* Garante que a largura inclua padding e borda, não apenas o conteúdo */
+    transition: border-color 0.3s ease; /* Transição suave para a mudança de cor da borda */
+}
+
+.geral-form input:focus {
+    border-color: #3498db; /* Cor da borda quando o input está em foco */
+}
+
+.tabela-preenchimento tr, .tabela-preenchimento td {
+    background-color: transparent; /* Remove a cor de fundo das linhas e células da tabela */
+    padding: 5px;
+}
+.tabela-preenchimento input{
+    min-width: 800%;
+   
+}
